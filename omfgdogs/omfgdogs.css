@@ -1,14 +1,25 @@
+@media (min-width: 992px){
+#nodogs{
+display: none;
+}
 body {
-	background-image: url('omfgdogs.gif');
+background-image: url('omfgdogs.gif');
 	background-repeat: repeat;
 }
-
+}
 #credits {
 font-size: 12px;
 font-family: Helvetica;
 color: white;
-
 vertical-align: bottom;
 text-align: right;
+}
 
+@media (max-width: 992px) {
+body {
+background-color: white;
+}
+#nodogs {
+
+	}
 }
