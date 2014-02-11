@@ -1,0 +1,14 @@
+body {
+	background-image: url('omfgdogs.gif');
+	background-repeat: repeat;
+}
+
+#credits {
+font-size: 12px;
+font-family: Helvetica;
+color: white;
+
+vertical-align: bottom;
+text-align: right;
+
+}
