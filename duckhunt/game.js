@@ -7,21 +7,11 @@ function draw() {
   img.onload = function(){
   	//drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
-    ctx.drawImage(img,0,714,900,66,0,365, 800, 70); //bushes
+   	ctx.drawImage(img,0,270,80,130, 75, 10, 320, 510); //tree 
+		
+	ctx.drawImage(img,0,700,900,200, 0, 365, 800, 235); //screen bottom (grass etc)
 
-		ctx.fillStyle = "#87CEEB";// fixes bushes by covering overlap
-	      ctx.fillRect (55, 425, 500, 10); 
-		ctx.fillStyle = "#87CEEB";// bush fix #2
-	      ctx.fillRect (625, 425, 190, 10);
-	
-	ctx.drawImage(img,0,270,80,130, 75, 10, 320, 510); //tree 
-		//loading tree after bush fix layers it over blue bar
-    ctx.drawImage(img,0,770,900,74,0,430, 800,135); //grass
-
-    ctx.fillStyle = "#C96A1B";//ground
-        ctx.fillRect (0, 565, 800, 35);
-
-	ctx.drawImage(img,0,0,60,50, 35, 490, 144,120); //dog
+    ctx.drawImage(img,0,0,60,50, 35, 490, 144,120); //dog
 
 	//loading ducks after background puts them in foreground of picture
 		// in running version of game, grass might need to load after ducks
