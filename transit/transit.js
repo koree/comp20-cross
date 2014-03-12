@@ -1,56 +1,45 @@
-var myLat = 0;
-var myLng = 0;
-/*
-var me = new google.maps.LatLng(myLat, myLng)
 var map;
-
-var marker;
-var	places;// "..." is stuff you have to fill in
-*/
-var map;
-
-
-function initialize() {
-    console.log('hi');
-		//station();
-        var myOptions = {
-
-            center: new google.maps.LatLng(myLat, myLng),
-            zoom: 11 
-            //mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		getMyLocation();
-        
-//		parse();
-	}
+var me;
 
 function getMyLocation() {
 				console.log ('hi');
-				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
-					navigator.geolocation.getCurrentPosition(renderMap(position) {
-						myLat = position.coords.latitude;
-						myLng = position.coords.longitude;
-						console.log ('nope');
-						console.log(myLat, myLng);
-						
-
-						//renderMap();
-						
-					});
-					
-				}
-				else {
-					alert("Geolocation is not supported by your web browser.  What a shame!");
+				if (navigator.geolocation) { 
+					navigator.geolocation.getCurrentPosition(initialize);}
+					else {
+					alert("No geolocation on this browser");
 				}
 			}
 
-function renderMap() {
- me = new google.maps.LatLng(myLat, myLng);
- 	map.setCenter(me);
+function initialize(position){
+    var myLat= position.coords.latitude;
+    var myLng= position.coords.longitude;
 
 
+    me = new google.maps.LatLng(myLat, myLng);
+    var myOptions = {
+        center: me,
+        zoom:11
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
+    var marker = new google.maps.Marker({
+        position: me,
+        title: "Work damn you"
+    });
+    marker.setMap(map);
+    bubble = new google.maps.InfoWindow();
+    google.maps.event.addListener(marker, 'click', function(){
+        bubble.setContent(marker.title);
+        bubble.open(map, marker);
+    });
+
+    //parse(map);
+    console.log(myLat, myLng); // program has gotten this far... still no map
 }
+
+
+
+
+
+
 
