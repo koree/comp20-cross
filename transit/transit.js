@@ -3,6 +3,10 @@ var me;
 var color;
 var bubble = new google.maps.InfoWindow();
 var marker;
+var m = [];
+ var shortest;
+    var shortname;
+
 
 function getMyLocation() {
 				
@@ -32,7 +36,8 @@ function initialize(position){
     marker.setMap(map);
   
     google.maps.event.addListener(marker, 'click', function(){
-        bubble.setContent(marker.title);
+        bubble.setContent(marker.title + " " + shortname + " is the closest station to you, just " +
+            shortest + " miles away!");
         bubble.open(map, marker);
     });
 
@@ -63,59 +68,81 @@ var locations = [];
 
 function mapinfo(){
 
-for (var i =0; i < 3; i++){
+   shortest = 4000;
 
-    if (parsed[i]["line"] == color){ 
+    for (var i =0; i < 3; i++){
 
-        console.log('come on already')
+        if (parsed[i]["line"] == color){ 
+            
+            console.log('come on already');
 
-    
-        
             for (var j = 0; parsed[i]["stations"][j] != null; ++j){
                 t_coords = new google.maps.LatLng(parsed[i]["stations"][j]["latitude"],
-                    parsed[i]["stations"][j]["longitude"]);
+                parsed[i]["stations"][j]["longitude"]);
                 //console.log(parsed[i]["stations"][j]["station_name"]);
                 var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-                
-                if (color == 'red'){
-                        
-                var m = new google.maps.Marker({
-                    position: t_coords, 
-                    title: parsed[i]["stations"][j]["station_name"],
-                    map: map,
-                    icon: iconBase + 'schools_maps.png'
                     
-                });
-            }else {
-                var m = new google.maps.Marker({
-                    position: t_coords, 
-                    title: parsed[i]["stations"][j]["station_name"],
-                    map: map,
-                });
-            }
-            console.log(parsed[i]["stations"][j]["latitude"]);
-            console.log(marker.position.lat());
-            console.log(marker.position.lng());
+                if (color == 'red'){
+                            
+                    m[j] = new google.maps.Marker({
+                        position: t_coords, 
+                        title: parsed[i]["stations"][j]["station_name"],
+                        map: map,
+                        icon: iconBase + 'schools_maps.png'
+                        
+                    });
+                }else {
+                    m[j] = new google.maps.Marker({
+                        position: t_coords, 
+                        title: parsed[i]["stations"][j]["station_name"],
+                        map: map,
+                    });
+                }
+                
 
-                google.maps.event.addListener(m, 'click', function(){
-                    bubble.setContent(m.title);
-                    bubble.open(map, m);
-                });
-                       
-            }
+                var length = distance(m[j]); //distance function
+                if (length < shortest){
+                    shortest = length;
+                    shortname = m[j].title;
+                }
 
+
+                google.maps.event.addListener(m[j], 'click', function(){
+                    temp = this;
+                    bubble.setContent(this.title + ", "+ distance(this) + " miles away");
+                    bubble.open(map, temp);
+                });              
             }
+        }
+    }
+    alert(shortname + " is closest to you, just" + shortest + " miles away!");
+}
     
 
-    }
+function distance (m){
+Number.prototype.toRad = function(){
+               return this * Math.PI / 180; 
+           }
+
+            var lat2 = m.position.lat(); 
+            var lng2 = m.position.lng();
+            var lat1 = marker.position.lat();
+            var lng1 = marker.position.lng();
+
+            var R = 3959; //miles radius
+            var x1 = lat2-lat1;
+            var dLat = x1.toRad();
+            var x2 = lng2-lng1;
+            var dLon = x2.toRad();
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2); 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            var d = R * c;
+
+            return d;
+
+
 }
-
-
-
-
-
-
-
-
 
 
