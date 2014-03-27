@@ -5,34 +5,33 @@
 <head>
 	<title>Fecesbook</title>
 	<script>
-		
+
 		function makestatus() {
-		
+
 			hora = new Date();
 			year = hora.getFullYear();
 			month = hora.getMonth() + 1;
 			day = hora.getDate();
 			hour = hora.getHours();
 			min = hora.getMinutes();
-			if (min <10) min = "0"  + min;
+			if (min <10) min = "0"  + min; // gets minute right if at start of hour
+			if (hour <10) hour = "0" + hour;
 			time = (month + "/" + day + "/" + year + " " + hour + ":" + min);
-		
+
 			text = document.getElementById("msg").value;
-			msg = time + " - " + text;
-			localStorage[new Date().getTime()] = msg;
-		
-			for (key in localStorage) {
-			
-			node = document.createElement("p"); //p 
-			node.appendChild(document.createTextNode(localStorage[key]));
-			x=document.getElementById("status");
-			x.insertBefore(node, x.childNodes[0]);
-	
-			document.getElementById("msg").value = "";; //reset
+			msg = time + " - " + text; 
+			localStorage[new Date().getTime()] = msg; // set local storage
+
+
+			order=document.getElementById("status");
+			out = "";
+			for (key in localStorage) { 
+				out = "<p>" + localStorage[key] + "</p>\n" + out;
 			}
+			order.innerHTML = out;
 		}
 
-		
+
 	</script>	
 </head>
 
@@ -50,8 +49,9 @@
 	</div>
 	<h2 id="fullname">Barney Gumble</h2>
 	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange = "makestatus()" /></h3>
-	
+
 	<h3>Updates</h3>
+<div id="test"></div>
 
 	<div id="status">
 	</div>
