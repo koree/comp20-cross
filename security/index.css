@@ -1,0 +1,36 @@
+body{
+	background-color: pink;
+	font-family: Helvetica;
+	text-align: left;
+}
+
+h1{
+	text-align: center;
+}
+
+#title {
+	border-width: 8px;
+	margin: 28px;
+	border-style: solid;
+}
+
+#section	{
+	font-size: 30px;
+	color: blue;
+	font-weight: bold;
+	text-align: center;
+}
+#problem{
+	font-size: 25px;
+	color: green;
+	text-align: center;
+}
+
+#img{
+	text-align: center;
+}
+
+#eg{
+	font-weight: bold;
+	
+}
