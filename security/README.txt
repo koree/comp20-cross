@@ -8,4 +8,4 @@ Worked with Raewyn Duvall - she was my assigned partner.
 ~5.5 hours spent on this assignment 
 
 Thanks to https://code.google.com/p/html5security/wiki/CrossOriginRequestSecurity and https://github.com/theSmaw/Caja-HTML-Sanitizer
-	for the code help in my suggestions
+	for the code help in my suggestions.
